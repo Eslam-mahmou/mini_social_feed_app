@@ -7,13 +7,15 @@ import 'core/routes/routes_generator.dart';
 import 'core/routes/routes_page.dart';
 import 'core/service/bloc_observer.dart';
 import 'core/service/easy_loading_service.dart';
+import 'core/service/screen_size.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   ConfigLoading().showLoading();
   configureDependencies();
-  runApp(const MiniSocialFeedApp());
+
+  runApp(const  MiniSocialFeedApp());
 }
 
 
@@ -24,10 +26,15 @@ class MiniSocialFeedApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mini Social Feed',
+      builder: (context, child) {
+        ScreenSizeService.init(context);
+        return child!;
+      },
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RoutesGenerator.onGenerateRoute,
       initialRoute: RoutesPage.signIn,
       theme: AppTheme.lightTheme,
+      themeMode: ThemeMode.light,
       darkTheme: AppTheme.darkTheme,
     );
   }

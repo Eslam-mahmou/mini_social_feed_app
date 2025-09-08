@@ -21,8 +21,5 @@ extension HeightWidthResponsive on int {
     return (this / ScreenSizeService.baseWidth) * screenWidth;
   }
 
-  double get fontSizeResponsive {
-    final screenWidth = ScreenSizeService.width;
-    return (this / ScreenSizeService.baseWidth) * screenWidth;
-  }
+
 }
