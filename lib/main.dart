@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_social_feed/core/utils/app_theme.dart';
 
@@ -8,9 +9,13 @@ import 'core/routes/routes_page.dart';
 import 'core/service/bloc_observer.dart';
 import 'core/service/easy_loading_service.dart';
 import 'core/service/screen_size.dart';
+import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Bloc.observer = MyBlocObserver();
   ConfigLoading().showLoading();
   configureDependencies();
