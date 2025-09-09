@@ -40,11 +40,11 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   get_it: ^8.2.0
   flutter_easyloading: ^3.0.5
-  bloc: ^9.0.0
   firebase_core: ^4.1.0
   firebase_auth: any
   cloud_firestore: any
   google_sign_in: ^5.2.1
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mini_social_feed/data/model/user_model.dart';
+import '../../core/error/failure.dart';
 import '../../core/utils/app_constant.dart';
 import '../../domain/entity/user_entity.dart';
 
@@ -28,8 +29,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String email,
     String password,
   ) async {
-    final credential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
     final user = credential.user;
     final userDoc = await _fireStore
         .collection(AppConstants.usersCollection)
