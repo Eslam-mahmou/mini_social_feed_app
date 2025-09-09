@@ -1,13 +1,36 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class Failure {
   final String errorMessage;
-
   const Failure({required this.errorMessage});
 }
 
-class ServerFailure extends Failure {
+class ServerFailure extends Failure implements Exception {
   ServerFailure({required super.errorMessage});
+
+  factory ServerFailure.fromFirebaseAuth(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'invalid-credential':
+        return ServerFailure(errorMessage: 'User not found');
+      case 'invalid-email':
+        return ServerFailure(errorMessage: 'Email is not valid');
+      case 'user-disabled':
+        return ServerFailure(errorMessage: 'User disabled');
+      case 'user-not-found':
+        return ServerFailure(errorMessage: 'User not found');
+      case 'wrong-password':
+        return ServerFailure(errorMessage: 'Incorrect password');
+      case 'email-already-in-use':
+        return ServerFailure(errorMessage: 'Email already in use');
+      case 'operation-not-allowed':
+        return ServerFailure(errorMessage: 'Operation not allowed');
+      case 'weak-password':
+        return ServerFailure(errorMessage: 'Password is too weak');
+      default:
+        return ServerFailure(errorMessage: e.message ?? 'Some error occurred');
+    }
+  }
 
   factory ServerFailure.fromDioException(DioException dioExep) {
     switch (dioExep.type) {
@@ -19,75 +42,10 @@ class ServerFailure extends Failure {
         return ServerFailure(errorMessage: 'Receive timeout with ApiServer');
       case DioExceptionType.badCertificate:
         return ServerFailure(errorMessage: 'Bad SSL certificate error');
-      case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(dioExep);
       case DioExceptionType.connectionError:
-        return ServerFailure(errorMessage: 'There is no internet connection');
+        return ServerFailure(errorMessage: 'No internet connection');
       case DioExceptionType.unknown:
-        return ServerFailure(
-          errorMessage: 'Unexpected error , Please try again',
-        );
-      default:
-        return ServerFailure(
-          errorMessage: 'Oops there is an error , Please try later',
-        );
-    }
-  }
-  factory ServerFailure.fromResponse(DioException dioExep) {
-    final response = dioExep.response;
-    if (response == null) {
-      return ServerFailure(errorMessage: 'Something went wrong');
-    }
-
-    final statusCode = response.statusCode;
-    final message = response.data['error'];
-
-    switch (statusCode) {
-      case 401:
-        switch (message) {
-          case '"email" must be a valid email':
-            return ServerFailure(errorMessage: 'Not a valid email format');
-          case 'email not found':
-            return ServerFailure(errorMessage: 'Email not found');
-          case 'password not found':
-            return ServerFailure(errorMessage: 'Password not found');
-          case "current password is incorrect":
-            return ServerFailure(errorMessage: 'Current password is incorrect');
-          case 'incorrect email or password':
-            return ServerFailure(errorMessage: 'Incorrect email or password');
-          default:
-            if (message.contains('fails to match the required pattern')) {
-              return ServerFailure(errorMessage: 'Invalid password format');
-            } else if (message.contains('invalid token')) {
-              return ServerFailure(errorMessage: 'Login again');
-            } else if (message.contains('token not provided')) {
-              return ServerFailure(errorMessage: 'Token not provided');
-            } else if (message.contains(
-              'Invalid phone number format for any country.',
-            )) {
-              return ServerFailure(errorMessage: 'Invalid phone number format');
-            }
-            return ServerFailure(errorMessage: 'Something went wrong');
-        }
-
-      case 404:
-        if (message.contains('no account')) {
-          return ServerFailure(
-            errorMessage: 'There is no account with this email address',
-          );
-        }
-        return ServerFailure(errorMessage: 'Something went wrong');
-
-      case 400:
-        if (message.contains('invalid or has expired')) {
-          return ServerFailure(
-            errorMessage: 'Reset code is invalid or has expired',
-          );
-        }
-        return ServerFailure(errorMessage: 'Something went wrong');
-
-      case 409:
-        return ServerFailure(errorMessage: "user already exists.");
+        return ServerFailure(errorMessage: 'Unexpected error, please try again');
       default:
         return ServerFailure(errorMessage: 'Something went wrong');
     }

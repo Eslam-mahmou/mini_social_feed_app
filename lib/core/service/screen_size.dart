@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class ScreenSizeService {
-  static late double width;
+  static late  double width;
   static late double height;
   static const baseWidth = 390.0;
   static const baseHeight = 844.0;
