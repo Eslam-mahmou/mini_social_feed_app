@@ -81,7 +81,7 @@ class DialogUtils {
             message,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+            ).textTheme.bodyMedium?.copyWith(color: AppColors.blackColor),
           ),
           title: Text(title),
           actions: actions,

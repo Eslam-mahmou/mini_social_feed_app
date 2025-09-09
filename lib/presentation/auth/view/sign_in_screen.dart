@@ -31,10 +31,8 @@ class SignInScreen extends StatelessWidget {
               context: context,
               message: state.message,
               title: "Error",
-              postActionName: "Ok",
-              postAction: () {
-                Navigator.pop(context);
-              },
+              negativeActionName: "Cancel",
+
             );
           }
           if (state is AuthSuccessState) {
@@ -46,7 +44,8 @@ class SignInScreen extends StatelessWidget {
               postActionName: "Ok",
               negativeActionName: "Cancel",
               postAction: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, RoutesPage.feed);
+
               },
             );
           }

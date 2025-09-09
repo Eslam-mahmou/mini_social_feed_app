@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_social_feed/core/routes/routes_page.dart';
 import '../../presentation/auth/view/sign_in_screen.dart';
 import '../../presentation/auth/view/sign_up_screen.dart';
+import '../../presentation/layout/view/feed_screen.dart';
 
 class RoutesGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -14,6 +15,11 @@ class RoutesGenerator {
       case RoutesPage.signUp:
         return MaterialPageRoute(
           builder: (context) => SignUpScreen(),
+          settings: settings,
+        );
+      case RoutesPage.feed:
+        return MaterialPageRoute(
+          builder: (context) => FeedScreen(),
           settings: settings,
         );
       default:

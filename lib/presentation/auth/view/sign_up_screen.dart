@@ -8,6 +8,7 @@ import 'package:mini_social_feed/presentation/auth/manager/auth_state.dart';
 import 'package:mini_social_feed/presentation/auth/view/widget/custom_row_button.dart';
 import 'package:mini_social_feed/presentation/auth/view/widget/custon_sign_with_google.dart';
 
+import '../../../core/routes/routes_page.dart';
 import '../../../core/widget/custom_dialog.dart';
 
 
@@ -30,10 +31,7 @@ class SignUpScreen extends StatelessWidget {
               context: context,
               message: state.message,
               title: "Error",
-              postActionName: "Ok",
-              postAction: () {
-                Navigator.pop(context);
-              },
+              negativeActionName: "Cancel"
             );
           }
           if (state is AuthSuccessState) {
@@ -45,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
               postActionName: "Ok",
               negativeActionName: "Cancel",
               postAction: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, RoutesPage.feed);
               },
             );
           }

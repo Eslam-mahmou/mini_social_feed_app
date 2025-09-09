@@ -9,8 +9,38 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.whiteColor,
       elevation: 0,
-      centerTitle: false,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        color: AppColors.blackColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+      actionsIconTheme: IconThemeData(
+        color: AppColors.blackColor,
+
+      )
+
     ),
+    drawerTheme: DrawerThemeData(
+      backgroundColor: AppColors.blackColor
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      showSelectedLabels: false,
+      type: BottomNavigationBarType.fixed,
+      showUnselectedLabels: false,
+      selectedItemColor: AppColors.blackColor,
+      unselectedItemColor: AppColors.secondaryColor,
+    ),
+floatingActionButtonTheme: FloatingActionButtonThemeData(
+  backgroundColor: AppColors.primaryColor,
+  foregroundColor: AppColors.whiteColor,
+  elevation: 0,
+  iconSize: 60,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+  )
+),
     textTheme: TextTheme(
       titleMedium: TextStyle(
         color: AppColors.blackColor,
