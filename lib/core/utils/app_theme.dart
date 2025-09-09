@@ -51,6 +51,11 @@ floatingActionButtonTheme: FloatingActionButtonThemeData(
         color: AppColors.secondaryColor,
         fontWeight: FontWeight.w500,
         fontSize: 14,
+      ),
+      bodyMedium: TextStyle(
+        color: AppColors.blackColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
       )
     ),
     inputDecorationTheme: InputDecorationTheme(

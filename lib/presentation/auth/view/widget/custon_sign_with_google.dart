@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_social_feed/core/di/injectable_initializer.dart';
-import 'package:mini_social_feed/presentation/auth/manager/auth_cubit.dart';
 
 import '../../../../core/utils/app_colors.dart';
 

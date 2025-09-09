@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mini_social_feed/core/utils/app_theme.dart';
-import 'package:mini_social_feed/presentation/layout/view/firebase_options.dart';
+import 'package:mini_social_feed/firebase_options.dart';
 
 import 'core/di/injectable_initializer.dart';
 import 'core/routes/routes_generator.dart';
