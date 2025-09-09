@@ -31,7 +31,10 @@ class SignUpScreen extends StatelessWidget {
               context: context,
               message: state.message,
               title: "Error",
-              negativeActionName: "Cancel"
+              negativeActionName: "Cancel",
+              negativeAction: () {
+                Navigator.pop(context);
+              }
             );
           }
           if (state is AuthSuccessState) {

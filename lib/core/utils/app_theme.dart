@@ -36,7 +36,9 @@ floatingActionButtonTheme: FloatingActionButtonThemeData(
   backgroundColor: AppColors.primaryColor,
   foregroundColor: AppColors.whiteColor,
   elevation: 0,
-  iconSize: 60,
+  extendedTextStyle: TextStyle(
+    fontSize: 24,
+  ),
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(12),
   )
@@ -108,6 +110,13 @@ floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
     ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        backgroundColor: AppColors.grayColor,
+        foregroundColor: AppColors.blackColor,
+
+      )
+    )
   );
   static ThemeData darkTheme = ThemeData(
     fontFamily: "PlusJakartaSans",

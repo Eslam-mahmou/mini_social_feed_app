@@ -3,6 +3,7 @@ import 'package:mini_social_feed/core/routes/routes_page.dart';
 import '../../presentation/auth/view/sign_in_screen.dart';
 import '../../presentation/auth/view/sign_up_screen.dart';
 import '../../presentation/layout/view/feed_screen.dart';
+import '../../presentation/post_screen/view/post_screen.dart';
 
 class RoutesGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -20,6 +21,11 @@ class RoutesGenerator {
       case RoutesPage.feed:
         return MaterialPageRoute(
           builder: (context) => FeedScreen(),
+          settings: settings,
+        );
+      case RoutesPage.postScreen:
+        return MaterialPageRoute(
+          builder: (context) => PostScreen(),
           settings: settings,
         );
       default:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_social_feed/core/routes/routes_page.dart';
 import 'package:mini_social_feed/core/utils/appAssets.dart';
 import 'package:mini_social_feed/presentation/layout/manager/layout_cubit/layout_state.dart';
 import 'package:mini_social_feed/presentation/layout/manager/layout_cubit/layout_view_model.dart';
@@ -32,7 +33,9 @@ class FeedScreen extends StatelessWidget {
             drawer: Drawer(),
             body: viewModel.tabs[viewModel.currentIndex],
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, RoutesPage.postScreen);
+              },
               child: Text("+"),
             ),
             bottomNavigationBar: BottomNavigationBar(
