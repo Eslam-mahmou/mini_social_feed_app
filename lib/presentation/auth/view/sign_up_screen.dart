@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mini_social_feed/core/common/responsive_height_width.dart';
-import 'package:mini_social_feed/presentation/sign_in/view/widget/custom_row_button.dart';
+import 'package:mini_social_feed/presentation/auth/view/widget/custom_row_button.dart';
+import 'package:mini_social_feed/presentation/auth/view/widget/custon_sign_with_google.dart';
 
-import '../../../core/utils/app_colors.dart';
+import '../../../core/routes/routes_page.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class SignInScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 32.heightResponsive),
-            Text("Sign In", style: theme.textTheme.titleMedium),
+            Text("Create an account", style: theme.textTheme.titleMedium),
             SizedBox(height: 12.heightResponsive),
             TextFormField(
               decoration: InputDecoration(
@@ -39,18 +41,17 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 12.heightResponsive),
-            ElevatedButton(onPressed: () {}, child: Text("Sign In")),
+            ElevatedButton(onPressed: () {}, child: Text("Sign Un")),
             SizedBox(height: 12.heightResponsive),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.grayColor,
-                foregroundColor: AppColors.blackColor,
-              ),
-              onPressed: () {},
-              child: Text("Sign In with Google"),
-            ),
+            CustomSignWithGoogle(text: "Sign Un with Google",),
             Expanded(child: SizedBox(height: 12.heightResponsive)),
-            CustomRowButton(),
+            CustomRowButton(
+              text: "Already have an account?",
+              textButton: "Login",
+              onTap: () {
+                Navigator.pushNamed(context, RoutesPage.signIn);
+              }
+            ),
             SizedBox(height: 12.heightResponsive),
           ],
         ),
