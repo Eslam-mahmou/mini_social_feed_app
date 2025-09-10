@@ -50,27 +50,24 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i697.AuthRemoteDataSource>(
       () => _i697.AuthRemoteDataSourceImpl(),
     );
-    gh.factory<_i530.HomeTabRemoteDataSource>(
-      () => _i530.HomeTabRemoteDataSourceImpl(gh<_i557.ApiClient>()),
-    );
     gh.factory<_i206.CreatePostRemoteDataSource>(
       () => _i206.CreatePostRemoteDataSourceImpl(gh<_i974.FirebaseFirestore>()),
-    );
-    gh.factory<_i181.HomeRepository>(
-      () => _i478.HomeTabRepositoryImpl(gh<_i530.HomeTabRemoteDataSource>()),
     );
     gh.factory<_i614.AuthRepository>(
       () => _i318.AuthRepositoryImpl(gh<_i697.AuthRemoteDataSource>()),
     );
-    gh.factory<_i127.HomeTabUseCase>(
-      () => _i127.HomeTabUseCase(gh<_i181.HomeRepository>()),
+    gh.factory<_i530.HomeTabRemoteDataSource>(
+      () => _i530.HomeTabRemoteDataSourceImpl(
+        gh<_i557.ApiClient>(),
+        gh<_i974.FirebaseFirestore>(),
+      ),
     );
     gh.factory<_i588.CreatePostRepository>(
       () =>
           _i2.CreatePostRepositoryImpl(gh<_i206.CreatePostRemoteDataSource>()),
     );
-    gh.factory<_i503.HomeTabViewModel>(
-      () => _i503.HomeTabViewModel(gh<_i127.HomeTabUseCase>()),
+    gh.factory<_i181.HomeRepository>(
+      () => _i478.HomeTabRepositoryImpl(gh<_i530.HomeTabRemoteDataSource>()),
     );
     gh.factory<_i185.AuthUseCase>(
       () => _i185.AuthUseCase(gh<_i614.AuthRepository>()),
@@ -78,8 +75,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i178.CreatePostUseCase>(
       () => _i178.CreatePostUseCase(gh<_i588.CreatePostRepository>()),
     );
+    gh.factory<_i127.HomeTabUseCase>(
+      () => _i127.HomeTabUseCase(gh<_i181.HomeRepository>()),
+    );
     gh.factory<_i1067.AuthViewModel>(
       () => _i1067.AuthViewModel(gh<_i185.AuthUseCase>()),
+    );
+    gh.factory<_i503.HomeTabViewModel>(
+      () => _i503.HomeTabViewModel(gh<_i127.HomeTabUseCase>()),
     );
     return this;
   }

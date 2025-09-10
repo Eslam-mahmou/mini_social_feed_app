@@ -18,7 +18,7 @@ class PostResponseModel extends PostResponseEntity {
       userId: json['userId'] ,
       title: json['title'] ,
       description: json['description'] ,
-      imageUrl: json['imageUrl'] ??"",
+      imageUrl: json['imageData'] ??"",
       likes: List<String>.from(json['likes'] ),
       createdAt: (json['createdAt']).toDate(),
     );
@@ -29,7 +29,7 @@ class PostResponseModel extends PostResponseEntity {
       'userId': userId,
       'title': title,
       'description': description,
-      'imageUrl': imageUrl,
+      'imageData': imageUrl,
       'likes': likes,
       'createdAt': Timestamp.fromDate(createdAt),
     };
