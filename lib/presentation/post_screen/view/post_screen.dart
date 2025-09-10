@@ -6,6 +6,7 @@ import 'package:mini_social_feed/core/di/injectable_initializer.dart';
 import 'package:mini_social_feed/core/widget/custom_dialog.dart';
 import 'package:mini_social_feed/presentation/post_screen/manager/create_post_cubit.dart';
 import 'package:mini_social_feed/presentation/post_screen/view/widget/custom_upload_image.dart';
+import 'package:mini_social_feed/presentation/post_screen/view/widget/sutom_hashtag_card.dart';
 
 import '../manager/create_post_state.dart';
 
@@ -118,7 +119,23 @@ class PostScreen extends StatelessWidget {
                           viewModel.pickImage();
                         },
                       ),
-                      SizedBox(height: 190.heightResponsive),
+                      SizedBox(height: 16.heightResponsive),
+
+                      SizedBox(
+                        height: 40.heightResponsive,
+                        child: ListView.builder(
+                          itemCount: viewModel.trendingHashtags.length,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return CustomHashtagCard(
+                              hashtag: viewModel.trendingHashtags[index],
+                            );
+                          },
+                        ),
+                      ),
+
+                      SizedBox(height: 90.heightResponsive),
                       ElevatedButton(
                         onPressed: () {
                           if (viewModel.formKey.currentState!.validate()) {
