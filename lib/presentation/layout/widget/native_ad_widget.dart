@@ -3,6 +3,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mini_social_feed/core/service/ad_service.dart';
 import 'package:mini_social_feed/core/common/responsive_height_width.dart';
 import 'package:mini_social_feed/core/utils/app_colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/app_provider/app_config_provider.dart';
 
 
 class CustomNativeAdWidget extends StatefulWidget {
@@ -48,7 +51,9 @@ class _CustomNativeAdWidgetState extends State<CustomNativeAdWidget> {
     if (!_isAdLoaded || _nativeAd == null) {
       return const SizedBox.shrink();
     }
-
+    var provider = Provider.of<AppConfigProvider>(context);
+    bool isDarkMode = provider.isDarkMode();
+    var theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 16.widthResponsive,
@@ -74,9 +79,9 @@ class _CustomNativeAdWidgetState extends State<CustomNativeAdWidget> {
                     color: AppColors.grayColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
+                  child:  Icon(
                     Icons.ad_units,
-                    color:AppColors.grayColor,
+                    color:isDarkMode?AppColors.grayColor: AppColors.blackColor,
                     size: 30,
                   ),
                 ),
@@ -88,25 +93,17 @@ class _CustomNativeAdWidgetState extends State<CustomNativeAdWidget> {
                     children: [
                       Text(
                         'Sponsored',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppColors.grayColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: theme.textTheme.bodySmall
                       ),
                       SizedBox(height: 4.heightResponsive),
                       Text(
                         'Discover amazing content',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.grayColor,
-                        ),
+                        style: theme.textTheme.bodySmall
                       ),
                       SizedBox(height: 2.heightResponsive),
                       Text(
                         'Tap to learn more',
-                        style: TextStyle(fontSize: 12, color: AppColors.grayColor),
+                        style: theme.textTheme.bodySmall,
                       ),
                     ],
                   ),

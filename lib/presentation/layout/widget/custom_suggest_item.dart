@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_social_feed/core/common/responsive_height_width.dart';
 import 'package:mini_social_feed/domain/entity/user_data_response_entity.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/app_provider/app_config_provider.dart';
 import '../../../core/utils/app_colors.dart';
 
 class CustomSuggestItem extends StatelessWidget {
@@ -12,6 +14,8 @@ class CustomSuggestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+    bool isDarkMode = provider.isDarkMode();
     var theme = Theme.of(context);
     return AspectRatio(
       aspectRatio: .62,
@@ -42,7 +46,7 @@ class CustomSuggestItem extends StatelessWidget {
           Text(
             usersDataEntity.firstName ?? "",
             style: theme.textTheme.bodySmall?.copyWith(
-              color: AppColors.blackColor,
+              color:isDarkMode?AppColors.whiteColor: AppColors.blackColor,
             ),
           ),
           Text(

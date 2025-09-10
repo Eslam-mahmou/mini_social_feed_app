@@ -5,7 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mini_social_feed/core/utils/app_theme.dart';
 import 'package:mini_social_feed/firebase_options.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
+import 'core/app_provider/app_config_provider.dart';
 import 'core/di/injectable_initializer.dart';
 import 'core/routes/routes_generator.dart';
 import 'core/routes/routes_page.dart';
@@ -21,7 +23,9 @@ void main() async {
   ConfigLoading().showLoading();
   configureDependencies();
 
-  runApp(const MiniSocialFeedApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => AppConfigProvider()..getTheme(),
+      child: const MiniSocialFeedApp()));
 }
 
 class MiniSocialFeedApp extends StatelessWidget {
@@ -29,6 +33,8 @@ class MiniSocialFeedApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return MaterialApp(
       title: 'Mini Social Feed',
       builder: (context, child) {
@@ -39,7 +45,7 @@ class MiniSocialFeedApp extends StatelessWidget {
       onGenerateRoute: RoutesGenerator.onGenerateRoute,
       initialRoute: RoutesPage.signIn,
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.light,
+      themeMode: provider.currentTheme,
       darkTheme: AppTheme.darkTheme,
     );
   }
