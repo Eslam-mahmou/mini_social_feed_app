@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'create_post_state.dart';
 import '../../../core/utils/app_constant.dart';
+
 @injectable
 class CreatePostViewModel extends Cubit<CreatePostState> {
   final ImagePicker _picker = ImagePicker();
@@ -16,7 +17,19 @@ class CreatePostViewModel extends Cubit<CreatePostState> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  List<String> trendingHashtags = [
+    "#Flutter",
+    "#Firebase",
+    "#Dart",
+    "#MobileDevelopment",
+    "#Coding",
+    "#Programming",
+    "#Tech",
+    "#AppDevelopment",
+    "#UIUX",
+    "#Design",
+    "#Creativity",
+  ];
   CreatePostViewModel() : super(CreatePostLoadingState());
 
   Future<void> pickImage() async {
@@ -44,15 +57,17 @@ class CreatePostViewModel extends Cubit<CreatePostState> {
 
     emit(CreatePostLoadingState());
 
-    await FirebaseFirestore.instance.collection(AppConstants.postsCollection).add({
-      'postId': const Uuid().v4(),
-      'userId': FirebaseAuth.instance.currentUser!.uid,
-      'title': titleController.text,
-      'description': descriptionController.text,
-      'imageData': imageBase64 ?? "",
-      'likes': [],
-      'createdAt': DateTime.now(),
-    });
+    await FirebaseFirestore.instance
+        .collection(AppConstants.postsCollection)
+        .add({
+          'postId': const Uuid().v4(),
+          'userId': FirebaseAuth.instance.currentUser!.uid,
+          'title': titleController.text,
+          'description': descriptionController.text,
+          'imageData': imageBase64 ?? "",
+          'likes': [],
+          'createdAt': DateTime.now(),
+        });
 
     emit(CreatePostSuccessState());
   }
