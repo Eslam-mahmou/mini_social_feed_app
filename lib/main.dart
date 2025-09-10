@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mini_social_feed/core/utils/app_theme.dart';
 import 'package:mini_social_feed/firebase_options.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'core/di/injectable_initializer.dart';
 import 'core/routes/routes_generator.dart';
@@ -12,18 +13,16 @@ import 'core/service/bloc_observer.dart';
 import 'core/service/easy_loading_service.dart';
 import 'core/service/screen_size.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await MobileAds.instance.initialize();
   Bloc.observer = MyBlocObserver();
   ConfigLoading().showLoading();
   configureDependencies();
 
-  runApp(const  MiniSocialFeedApp());
+  runApp(const MiniSocialFeedApp());
 }
-
 
 class MiniSocialFeedApp extends StatelessWidget {
   const MiniSocialFeedApp({super.key});

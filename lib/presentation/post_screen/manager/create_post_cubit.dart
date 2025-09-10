@@ -18,19 +18,26 @@ class CreatePostViewModel extends Cubit<CreatePostState> {
   TextEditingController descriptionController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<String> trendingHashtags = [
-    "#Flutter",
-    "#Firebase",
-    "#Dart",
-    "#MobileDevelopment",
-    "#Coding",
-    "#Programming",
-    "#Tech",
-    "#AppDevelopment",
-    "#UIUX",
-    "#Design",
-    "#Creativity",
+    "#art",
+    "#design",
+    "#illustration",
+    "#digitalart",
+    "#creative",
+    "#artwork",
+    "#visual",
+    "#graphic",
+    "#sketch",
+    "#drawing",
+    "#painting",
   ];
   CreatePostViewModel() : super(CreatePostLoadingState());
+
+  // دالة لإضافة hashtag للوصف
+  void addHashtagToDescription(String hashtag) {
+    final currentText = descriptionController.text;
+    final newText = currentText.isEmpty ? hashtag : '$currentText $hashtag';
+    descriptionController.text = newText;
+  }
 
   Future<void> pickImage() async {
     try {

@@ -11,6 +11,7 @@ import 'package:mini_social_feed/domain/entity/past_response_Entity.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../widget/custom_suggest_item.dart';
+import '../widget/native_ad_widget.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -46,7 +47,6 @@ class HomeTab extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            // Suggested Users - ثابت بدون refresh
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.widthResponsive),
               child: Column(
@@ -60,7 +60,6 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.heightResponsive),
-            // Posts - مع refresh
             _buildPostsList(viewModel, state, theme),
           ],
         );
@@ -128,8 +127,8 @@ class HomeTab extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.error_outline, size: 48, color: Colors.red),
-                  SizedBox(height: 16),
+                  Icon(Icons.error_outline, size: 48, color: AppColors.redColor),
+                  SizedBox(height: 16.heightResponsive),
                   Text(
                     "Error: ${snapshot.error}",
                     style: theme.textTheme.bodyMedium,
@@ -161,21 +160,32 @@ class HomeTab extends StatelessWidget {
 
           return RefreshIndicator(
             onRefresh: () async {
-              // إعادة تحميل المنشورات فقط
               await viewModel.loadInitialData();
             },
             child: ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: 16.widthResponsive),
-              itemCount: posts.length,
+              itemCount: posts.length + (posts.length ~/ 3),
               itemBuilder: (context, index) {
+                if (index > 0 && (index + 1) % 4 == 0) {
+                  return const CustomNativeAdWidget();
+                }
+                final postIndex = index - (index ~/ 4);
+
+                if (postIndex >= posts.length) {
+                  return const SizedBox.shrink();
+                }
+
                 return CustomPostItem(
-                  post: posts[index],
-                  isLiked: viewModel.isLiked(posts[index]),
+                  post: posts[postIndex],
+                  isLiked: viewModel.isLiked(posts[postIndex]),
                   onLikePressed: () {
                     final currentUserId =
                         FirebaseAuth.instance.currentUser?.uid;
                     if (currentUserId != null) {
-                      viewModel.toggleLike(posts[index].postId, currentUserId);
+                      viewModel.toggleLike(
+                        posts[postIndex].postId,
+                        currentUserId,
+                      );
                     }
                   },
                 );
